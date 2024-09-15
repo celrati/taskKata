@@ -11,7 +11,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskDTO {
+
     private String name;
+
     private String description;
+
     private String status; // IN PROGRESS - COMPLETED - NEW
 }

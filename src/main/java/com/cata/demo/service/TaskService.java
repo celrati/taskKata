@@ -1,6 +1,7 @@
 package com.cata.demo.service;
 
 
+import com.cata.demo.exception.TaskException;
 import com.cata.demo.model.Task;
 import com.cata.demo.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +30,14 @@ public class TaskService {
 
     public void updateTask(Long id, String status) {
         Optional<Task> optionalTask = taskRepository.findById(id);
-        if (optionalTask.isPresent()) {
-            Task existingTask = optionalTask.get();
-            existingTask.setStatus(status);
-            taskRepository.save(existingTask);
-        }
+
+        if (!optionalTask.isPresent())
+            throw new TaskException("task is not present !");
+
+        Task existingTask = optionalTask.get();
+        existingTask.setStatus(status);
+        taskRepository.save(existingTask);
+
     }
 
     public List<Task> listTasks() {
